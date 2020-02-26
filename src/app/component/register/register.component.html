@@ -1,0 +1,81 @@
+<div class="container">
+    <form [formGroup]="regdata" (ngSubmit)="data(regdata.value)">
+
+        <div>
+            <label>
+                First Name:
+                <input type="text" formControlName="fname" name="fname">
+            </label>
+
+            <div *ngIf="regdata.get('fname').invalid &&  regdata.get('fname').touched" class="alert alert-danger">
+                <div *ngIf="regdata.get('fname').errors?.required">required</div>
+                <div *ngIf="regdata.get('fname').errors?.minlength"> Min lenght 5 </div>
+            </div>
+
+        </div>
+
+
+        <div>
+            <label>
+                last Name:
+                <input type="text" formControlName="lname">
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Password
+                <input type="text" formControlName="password">
+            </label>
+            <div *ngIf="regdata.get('password').invalid &&  regdata.get('password').touched" class="alert alert-danger">
+                <div *ngIf="regdata.get('password').errors?.required">required</div>
+                <div *ngIf="regdata.get('password').errors?.pattern">Minimum eight characters, at least one uppercase
+                    letter, one lowercase letter, one number and one special character:</div>
+
+            </div>
+
+        </div>
+
+        <div>
+            <label>Confirm Password
+                <input type="text" formControlName="cpassword">
+            </label>
+
+            <div>
+                <small *ngIf="regdata.errors?.misMatch" class="text-danger"> password misMatch</small>
+            </div>
+        </div>
+
+       
+
+        <div>
+            <label>Countries</label>
+            <select  formControlName="country">
+                <option *ngFor="let country of countries" [ngValue]="country">{{country}}</option>
+            </select>
+            
+            <div *ngIf= "regdata.get('country').invalid && regdata.get('country').touched" class="alert alert-danger">
+
+                <div *ngIf= "regdata.get('country').errors?.required" >
+                    required
+
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <input  type="checkbox" formControlName="terms">
+
+            <div *ngIf= "regdata.get('terms').invalid && regdata.get('terms').touched" class="alert alert-danger">
+                <div *ngIf= "regdata.get('terms').errors?.required">required</div>
+            </div>
+        </div>
+        <!-- {{regdata.value | json}} -->
+
+
+        <button [disabled]="regdata.invalid" type="submit" class="primary btn btn-primary">Submit</button>
+
+    </form>
+
+</div>
